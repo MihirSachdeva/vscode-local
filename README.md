@@ -54,8 +54,9 @@ npm start
 - `forge.config.js` - Electron Forge configuration,`
 ```
 
-Note the line
+Note the line in `forge.config.js`
 ```js
+// forge.config.js
 extraResource: ['src/external']
 ```
 This tells `electron-forge` to include the contents of the `src/external` folder when packaging the application. (PS: More research required here)

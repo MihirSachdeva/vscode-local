@@ -1,11 +1,15 @@
-const { app, BrowserWindow, ipcMain, dialog } = require("electron");
-const path = require("path");
-const { exec } = require("child_process");
-const fetch = require("node-fetch");
-const fs = require("fs");
+import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import path from "node:path";
+import { exec } from "child_process";
+import fetch from "node-fetch";
+import fs from "node:fs";
+import { fileURLToPath } from 'node:url';
 
 let mainWindow;
 let codeServerProcess;
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const startCodeServer = () => {
   const codeServerPath = path.resolve(
