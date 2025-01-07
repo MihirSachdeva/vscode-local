@@ -1,43 +1,47 @@
-import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import { app, BrowserWindow } from "electron";
 import path from "node:path";
 import { exec } from "child_process";
 import fetch from "node-fetch";
-import fs from "node:fs";
 import { fileURLToPath } from 'node:url';
 
 let mainWindow;
 let codeServerProcess;
 
+const { isPackaged } = app;
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const startCodeServer = () => {
-  const codeServerPath = path.resolve(
-    __dirname,
-    "external/code-server/bin/code-server"
-  );
-  const configPath = path.resolve(__dirname, "config/code-server-config.yaml");
+const getCodeServerPath = () => {
+  return isPackaged
+    ? path.resolve(process.resourcesPath, "code-server/bin/code-server")
+    : path.resolve(__dirname, "../external/code-server/bin/code-server");
+}
 
+const getCodeServerConfigPath = () => {
+  return isPackaged
+    ? path.resolve(process.resourcesPath, "config/code-server-config.yaml")
+    : path.resolve(__dirname, "../config/code-server-config.yaml");
+}
+
+const CODE_SEVER_PATH = getCodeServerPath();
+const CODE_SERVER_CONFIG_PATH = getCodeServerConfigPath();
+
+const startCodeServer = () => {
   console.log(
-    `Attempting to run code-server executable at: '${codeServerPath}'`
+    `Attempting to run code-server executable at: '${CODE_SEVER_PATH}'`
   );
-  console.log(`Using config file at: '${configPath}'`);
-  try {
-    const contents = fs.readFileSync(codeServerPath, "utf8");
-    console.log("File contents:", contents);
-  } catch (err) {
-    console.error("Error reading file:", err);
-  }
+  console.log(`Using config file at: '${CODE_SERVER_CONFIG_PATH}'`);
 
   let process;
 
   try {
-    process = exec(`${codeServerPath} --config ${configPath}`);
+    process = exec(`${CODE_SEVER_PATH} --config ${CODE_SERVER_CONFIG_PATH}`);
   } catch (err) {
     console.error("Error starting code-server:", err);
   }
 
-  // Add error handling
+  // Error handling
   process.stdout.on("data", (data) => {
     console.log("code-server output:", data);
   });
@@ -63,7 +67,7 @@ app.on("ready", () => {
     },
   });
 
-  // Wait for code-server to be ready
+  // Wait for code-server to be ready, do 30 retries with 1 second delay
   let retries = 0;
   const loadCodeServer = () => {
     if (retries > 30) {
@@ -84,6 +88,7 @@ app.on("ready", () => {
 
   loadCodeServer();
 
+  // Cleanup
   mainWindow.on("closed", () => {
     mainWindow = null;
     if (codeServerProcess) codeServerProcess.kill();

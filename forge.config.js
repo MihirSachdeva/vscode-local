@@ -1,33 +1,33 @@
-import { FusesPlugin } from '@electron-forge/plugin-fuses';
-import { FuseV1Options, FuseVersion } from '@electron/fuses';
+import { FusesPlugin } from "@electron-forge/plugin-fuses";
+import { FuseV1Options, FuseVersion } from "@electron/fuses";
 
 export default {
   packagerConfig: {
     asar: true,
-    extraResource: ['src/external'],
+    extraResource: ["external/code-server", "config"],
   },
   rebuildConfig: {},
   makers: [
     {
-      name: '@electron-forge/maker-squirrel',
+      name: "@electron-forge/maker-squirrel",
       config: {},
     },
     {
-      name: '@electron-forge/maker-zip',
-      platforms: ['darwin'],
+      name: "@electron-forge/maker-zip",
+      platforms: ["darwin"],
     },
     {
-      name: '@electron-forge/maker-deb',
+      name: "@electron-forge/maker-deb",
       config: {},
     },
     {
-      name: '@electron-forge/maker-rpm',
+      name: "@electron-forge/maker-rpm",
       config: {},
     },
   ],
   plugins: [
     {
-      name: '@electron-forge/plugin-auto-unpack-natives',
+      name: "@electron-forge/plugin-auto-unpack-natives",
       config: {},
     },
     // Fuses are used to enable/disable various Electron functionality
