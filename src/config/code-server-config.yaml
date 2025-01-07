@@ -5,3 +5,4 @@ disable-update-check: true
 disable-getting-started-override: true
 disable-file-downloads: true
 disable-file-uploads: true
+app-name: "Newton Athena"
