@@ -55,7 +55,7 @@ npm run package
 ## Project Structure
 
 ```markdown
-- `src/index.js` - Main electron process
+- `src/main.js` - Main electron process
 - `src/config/code-server-config.yaml` - code-server configuration
 - `src/external/code-server` - code-server release contents
 - `src/external/code-server/bin/code-server` - code-server executable
