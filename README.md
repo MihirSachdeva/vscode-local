@@ -56,7 +56,7 @@ npm run package
 
 ```markdown
 - `src/main.js` - Main electron process
-- `src/config/code-server-config.yaml` - code-server configuration
+- `config/code-server-config.yaml` - code-server configuration
 - `external/code-server` - code-server release contents
 - `external/code-server/bin/code-server` - code-server executable
 - `forge.config.js` - Electron Forge configuration,`
@@ -90,4 +90,4 @@ process.resourcesPath + 'code-server/bin/code-server'
 ```
 
 ## Configuration
-The code-server instance is configured through `src/config/code-server-config.yaml`
+The code-server instance is configured through `config/code-server-config.yaml`
