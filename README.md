@@ -32,11 +32,11 @@ npm install
 - Go to [code-server releases](https://github.com/coder/code-server/releases)
 - Download the latest release for your platform
 - Extract the downloaded archive
-- Create `src/external/code-server` directory
-- Copy all contents from the extracted archive into `src/external/code-server`
+- Create `external/code-server` directory
+- Copy all contents from the extracted archive into `external/code-server`
 - Ensure the executable exists at:
-    - Linux/macOS: `src/external/code-server`
-    - Windows: `src/external/code-server/bin/code-server.exe`
+    - Linux/macOS: `external/code-server`
+    - Windows: `external/code-server/bin/code-server.exe`
 ```
 
 ## Development
@@ -57,8 +57,8 @@ npm run package
 ```markdown
 - `src/main.js` - Main electron process
 - `src/config/code-server-config.yaml` - code-server configuration
-- `src/external/code-server` - code-server release contents
-- `src/external/code-server/bin/code-server` - code-server executable
+- `external/code-server` - code-server release contents
+- `external/code-server/bin/code-server` - code-server executable
 - `forge.config.js` - Electron Forge configuration,`
 ```
 
